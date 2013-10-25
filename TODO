@@ -1,0 +1,4 @@
+rule language: incorporate time (?)
+broadcast events to all filters for a corr id. Its responsibility of the filter to pick events as per their rule (remove filgter$nam,also fix add stream func)
+rename $every to time_window and $correlated to action
+horizontal/vertical correlation should be defined in rule, not record

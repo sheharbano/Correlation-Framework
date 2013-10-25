@@ -1,7 +1,7 @@
 ##! A correlation rule parser
 
-@load data.bro
-@load utils.bro
+@load correlation/data.bro
+@load correlation/utils.bro
 
 module Parser; 
 
@@ -183,7 +183,7 @@ function parse( p: Parser::Parser, history: vector of HistoryVal, hist_tb: table
 
 
 
-event bro_init()
+event bro_init() &priority=20
 	{
 	Parser::init_expr_syntax_rules();
 	Parser::init_order_syntax_rules();

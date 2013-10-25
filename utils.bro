@@ -1,6 +1,6 @@
 ##! Some utility functions to used by correlation framework
-@load stack.bro
-@load tokenizer.bro
+@load correlation/stack.bro
+@load correlation/tokenizer.bro
 
 ## This function converts order part of
 ## the correlation rule to a string

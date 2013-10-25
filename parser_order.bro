@@ -1,7 +1,7 @@
 ##! Deals with parsing the order part of the
 ##! correlation rule
 
-@load utils.bro
+@load correlation/utils.bro
 
 module Parser;
 

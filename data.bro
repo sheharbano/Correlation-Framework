@@ -17,6 +17,10 @@ type StreamData: record {
 type HistoryVal: record {
 	## Name of the correlation stream.
 	stream_name:        string;
+	## If Correlation::Filter$detailed_history is true,
+	## this value will be used in Correlation::Val$str_history
+	## instead of stream_name
+	alt_name:	string &optional;
 	## How many times it was seen.
 	times_seen:         count         &default=0;
 };

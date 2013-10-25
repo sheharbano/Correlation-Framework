@@ -1,10 +1,10 @@
 ##! Deals with parsing the expression part of the
 ##! correlation rule
 
-@load data.bro
-@load stack.bro
-@load utils.bro
-@load correlation.bro
+@load correlation/data.bro
+@load correlation/stack.bro
+@load correlation/utils.bro
+@load correlation/correlation.bro
 
 module Parser;
 
@@ -162,12 +162,20 @@ function do_operation_expr( operand1: Parser::LexemeVal, operand2: Parser::Lexem
 		if ( (operand1$token == "BOOLEAN") && (operand2$token == "BOOLEAN") )
 			{	
 			op_logic_1 = ( operand1$lexeme == "t"? T: F );
+			}
+
+		else if ( operand1$token == "STREAM" )	
+			{
+			op_logic_1 = ( operand1$lexeme in hist_tb? T: F );
+			}
+
+		if ( operand2$token == "BOOLEAN" )
+			{	
 			op_logic_2 = ( operand2$lexeme == "t"? T: F );
 			}
 
-		else if ( (operand1$token == "STREAM") && (operand2$token == "STREAM") )	
+		else if ( operand2$token == "STREAM" )	
 			{
-			op_logic_1 = ( operand1$lexeme in hist_tb? T: F );
 			op_logic_2 = ( operand2$lexeme in hist_tb? T: F );
 			}
 	
@@ -333,7 +341,9 @@ function init_expr_syntax_rules()
 
 	local syntax_info_logic: Parser::SyntaxInfo;
 	syntax_info_logic[[$op1_token="BOOLEAN", $op2_token="BOOLEAN"]]="BOOLEAN";
-	syntax_info_logic[[$op1_token="STREAM", $op2_token="STREAM"]]="BOOLEAN";	
+	syntax_info_logic[[$op1_token="STREAM", $op2_token="STREAM"]]="BOOLEAN";
+	syntax_info_logic[[$op1_token="BOOLEAN", $op2_token="STREAM"]]="BOOLEAN";
+	syntax_info_logic[[$op1_token="STREAM", $op2_token="BOOLEAN"]]="BOOLEAN";	
 	expr_syntax_rules["LOGICAL"] = syntax_info_logic;
 
 	local syntax_info_mem: Parser::SyntaxInfo;
